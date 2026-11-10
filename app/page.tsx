@@ -4,18 +4,6 @@ import { ArticleCard } from "@/componets/ArticleCard";
 const HomePage = () => {
   return (
     <div>
-      <ArticleCard
-        id={1}
-        slug="fdffd"
-        title="aaa"
-        description="dsadasd"
-        category="world"
-        image="./https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1400&q=85"
-        imageAlt="aaaaa"
-        author="aaaaa"
-        date="aaaaa"
-        content={["aaaas", "aaas"]}
-      />
       <header>
         <div className="w-[1184px] h-[75px] flex flex-col justify-between">
           <p className="text-[10px] text-[#C44724]">STAY CURIOUS</p>
@@ -42,8 +30,8 @@ const HomePage = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {data.map((article, index) => (
-          <ArticleCard key={index} />
+        {data.map((article) => (
+          <ArticleCard key={article.id} {...article} />
         ))}
       </div>
 
