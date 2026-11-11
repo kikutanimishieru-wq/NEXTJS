@@ -1,12 +1,14 @@
-import data from "@/data/news.json";
 import { notFound } from "next/navigation";
+import articles from "@/data/news.json";
+import { ArticleCard } from "@/componets/ArticleCard";
 
 type ArticleDetailpageType = {
   params: Promise<{ slug: string }>;
 };
 
+export const instant = false;
 export const generateStaticParams = () => {
-  return data.map((article) => ({
+  return articles.map((article) => ({
     slug: article.slug,
   }));
 };
@@ -14,24 +16,32 @@ export const generateStaticParams = () => {
 const ArticleDetailpage = async ({ params }: ArticleDetailpageType) => {
   const { slug } = await params;
 
-  const foundArticle = data.find(
-    (article) => article.slug === slug
-  );
+  const foundArticle = articles.find((article) => article.slug === slug);
 
   if (!foundArticle) {
     notFound();
   }
 
+  const related = articles.filter(
+    (element) =>
+      foundArticle.category === element.category &&
+      foundArticle.id !== element.id,
+  );
+
   return (
     <main className="mx-auto max-w-[900px] px-6 py-12">
-      <p className="text-[10px] text-[#065F46]">
-        {foundArticle.category}
-      </p>
-      <p className="text-[#65675F] text-[11px]">
-        —   THE DAILY
-      </p>
+      <div
+        className="flex items-center gap-[5.5px]
+      "
+      >
+        <div className="w-[62px] h-[27px] rounded-[100px] bg-[#ECFDF5] flex justify-center items-center">
+          <p className="text-[10px] text-[#065F46]">{foundArticle.category}</p>
+        </div>
 
-      <h1 className="mt-4 text-[60px] text-[#0C0A09]">
+        <p className="text-[#65675F] text-[11px]">— THE DAILY</p>
+      </div>
+
+      <h1 className="mt-4 text-[60px] font-bold text-[#0C0A09]">
         {foundArticle.title}
       </h1>
 
@@ -39,22 +49,70 @@ const ArticleDetailpage = async ({ params }: ArticleDetailpageType) => {
         {foundArticle.description}
       </p>
 
-      <div className="mt-6 flex gap-4 text-sm text-gray-500">
-        <span className="text-[14px] text-[#22241F]">{foundArticle.author}</span>
-        <span className="t">{foundArticle.date}</span>
+      <div className="flex items-center gap-[30px]">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-[#ECFDF5]"></div>
+
+        <div className="text-[10px] text-[#65675F] flex flex-col">
+          written by
+          <span className="text-[14px] text-[#22241F] font-bold ">
+            {foundArticle.author}
+          </span>
+        </div>
+
+        <div className="text-[10px] text-[#65675F] flex flex-col">
+          PUBLISHED
+          <span className="text-[14px] text-[#22241F]">
+            {foundArticle.date}
+          </span>
+        </div>
+
+        <div className="text-[10px] text-[#65675F] flex flex-col">
+          READING TIME
+          <span className="text-[14px] text-[#22241F">1 MIN READ</span>
+        </div>
       </div>
 
       <img
         src={foundArticle.image}
         alt={foundArticle.imageAlt}
-        className="mt-8 w-full rounded-xl"
+        className="mt-8 w-[1184px] h-[514.78px]  rounded-[24px]"
       />
 
-      <div className="mt-8 space-y-5">
-        {foundArticle.content.map((paragraph, index) => (
-          <p key={index} className="text-lg leading-8">
-            {paragraph}
+      <div className="w-[768px] h-[596px] border  rounded-[16px] bg-[#FFFFFF] flex flex-col mt-[56px]">
+        <p className="text-[10px] text-[#C44724] ml-[40px] mt-[40px]">
+          ━━ THE STORY
+        </p>
+        <div className="mt-8 space-y-5 ml-[40px]">
+          {foundArticle.content.map((paragraph, index) => (
+            <p key={index} className="text-lg leading-8">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+        <p className="text-[16px] text-[#C44724] flex justify-center mt-[24px]">
+          • • •
+        </p>
+      </div>
+      <p className="text-[11px] text-[#65675F] flex justify-center">
+        Fictional sample story · The Daily learning edition
+      </p>
+
+      <div className="w-[694px] h-[98px] rounded-[16px] flex justify-between items-center bg-[#FFF7ED] ">
+        <div className="flex flex-col ">
+          <p className="text-[18px] text-[#22241F]">A little more curiosity?</p>
+          <p className="text-[14px] text-[#65675F]">
+            Your next good read is just around the corner.
           </p>
+        </div>
+
+        <div className="w-[98px] h-[37px] rounded-[100px] bg-[#22241F] flex justify-center items-center">
+          <p className="text-[12px] text-[#FFFFFF]">All stories ↗</p>
+        </div>
+      </div>
+
+      <div>
+        {related.map((relatedArticle) => (
+          <ArticleCard key={relatedArticle.id} {...relatedArticle} />
         ))}
       </div>
     </main>
