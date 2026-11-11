@@ -27,14 +27,10 @@ export default function RootLayout({ children }: PropsWithChildren) {
         </a>
         {children}
           <footer>
-        <div className="ml-[128px]">
-           <p className="text-[10px] text-[#C44724]">KEEP YOUR CURIOSITY GOING</p>
-           <p className="text-[30px] text-[#22241F]">More to discover.</p>
-        </div>
-       
+    
 
 
-        <div className="w-[300px] h-[133px] flex justify-between items-center ml-[128px]">
+        <div className="w-[300px] h-[133px] flex justify-between items-center py-9 mx-auto ">
            <div className="flex flex-col">
               <p className="text-[30px] text-[#22241F]">the daily ▧</p>
               <p className="text-[12px] text-[#65675F]">
