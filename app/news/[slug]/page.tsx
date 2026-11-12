@@ -85,7 +85,8 @@ const ArticleDetailpage = async ({ params }: ArticleDetailpageType) => {
             </span>
           </div>
         </div>
-
+ 
+ 
         <div className="text-[10px] text-[#65675F] flex flex-col font-semibold">
           PUBLISHED
           <span className="text-[14px] text-[#22241F]">
