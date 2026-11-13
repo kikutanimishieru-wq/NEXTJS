@@ -19,7 +19,7 @@ const HomePage = () => {
   return (
     <div>
       <header>
-        <div className="w-[1184px] h-[75px] flex justify-between">
+        <div className="mb-6 flex items-end justify-between gap-5">
           <div className="flex flex-col">
             <p className="text-[10px] text-[#C44724]">STAY CURIOUS</p>
             <p className="text-[36px] text-[#22241F]">The latest stories.</p>
